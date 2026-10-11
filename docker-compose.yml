@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: parking-mongo
+    ports: ["27017:27017"]
+    volumes: ["mongo_data:/data/db"]
+
+  hive:
+    image: apache/hive:4.0.0
+    container_name: parking-hive
+    environment:
+      SERVICE_NAME: hiveserver2
+    ports: ["10000:10000", "10002:10002"]
+    volumes:
+      - ./hive_data:/data
+      - ./hive:/hive
+
+volumes:
+  mongo_data:
